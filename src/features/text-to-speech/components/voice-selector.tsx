@@ -2,7 +2,9 @@
 
 import { useStore } from "@tanstack/react-form";
 
-import { VOICE_CATEGORY_LABELS } from "@/features/voices/data/voice-categories";
+import { 
+  VOICE_CATEGORY_LABELS
+} from "@/features/voices/data/voice-categories";
 
 import { Field, FieldLabel } from "@/components/ui/field";
 import {
@@ -22,7 +24,11 @@ import { useTTSVoices } from "../contexts/tts-voices-context";
 import { ttsFormOptions } from "./text-to-speech-form";
 
 export function VoiceSelector() {
-  const { customVoices, systemVoices, allVoices: voices } = useTTSVoices();
+  const { 
+    customVoices, 
+    systemVoices, 
+    allVoices: voices
+  } = useTTSVoices();
 
   const form = useTypedAppFormContext(ttsFormOptions);
   const voiceId = useStore(form.store, (s) => s.values.voiceId);
@@ -34,10 +40,10 @@ export function VoiceSelector() {
     ? selectedVoice
     : hasMissingSelectedVoice
       ? {
-          id: voiceId,
-          name: "Unavailable voice",
-          category: null as null,
-        }
+        id: voiceId,
+        name: "Unavailable voice",
+        category: null as null,
+      }
       : voices[0];
 
   return (
@@ -52,11 +58,15 @@ export function VoiceSelector() {
           <SelectValue>
             {currentVoice && (
               <>
-                <VoiceAvatar seed={currentVoice.id} name={currentVoice.name} />
+                <VoiceAvatar 
+                  seed={currentVoice.id}
+                  name={currentVoice.name}
+                />
                 <span className="truncate text-sm font-medium tracking-tight">
                   {currentVoice.name}
                   {currentVoice.category &&
-                    ` - ${VOICE_CATEGORY_LABELS[currentVoice.category]}`}
+                    ` - ${VOICE_CATEGORY_LABELS[currentVoice.category]}`
+                  }
                 </span>
               </>
             )}
@@ -117,4 +127,4 @@ export function VoiceSelector() {
       </Select>
     </Field>
   );
-}
+};
